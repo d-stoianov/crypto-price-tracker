@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const MobileItem = ({ coin }: { coin: Coin }) => {
     return (
-        <div className="flex h-[4rem] w-full justify-between rounded-3xl bg-slate-600 px-4 text-white">
+        <div className="flex h-[4rem] w-full justify-between rounded-3xl bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500">
             <div className="flex h-full items-center gap-2">
                 <div>
                     <img width={45} src={coin.image} />
@@ -28,7 +28,7 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
 
 const DesktopItem = ({ coin }: { coin: Coin }) => {
     return (
-        <div className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg bg-slate-600 px-4 text-white">
+        <div className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg  bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500">
             <div className="col-span-1 flex w-[8rem] items-center gap-2 text-start">
                 <img width={30} src={coin.image} />
                 <p>{coin.name}</p>
