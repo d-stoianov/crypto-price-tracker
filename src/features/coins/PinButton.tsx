@@ -16,7 +16,7 @@ const PinButton = ({
     return (
         <button
             onClick={onClick}
-            className={`flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white transition duration-100 hover:bg-white hover:text-black ${isActive ? 'bg-white text-black' : 'text-white'}`}
+            className={`flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white transition duration-100 ${isActive ? 'bg-white text-black' : 'text-white'} md:hover:bg-white md:hover:text-black`}
         >
             <PinIcon />
         </button>
