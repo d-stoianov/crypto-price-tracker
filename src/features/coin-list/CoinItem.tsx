@@ -5,7 +5,7 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
         <div className="flex h-[4rem] w-full justify-between rounded-3xl bg-slate-600 px-4 text-white">
             <div className="flex h-full items-center gap-2">
                 <div>
-                    <img width={40} src={coin.image} />
+                    <img width={45} src={coin.image} />
                 </div>
                 <div className="flex flex-col">
                     <p>{coin.name}</p>
@@ -13,8 +13,12 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
                 </div>
             </div>
             <div className="flex flex-col justify-center">
-                <p className="">{`$${coin.current_price.toLocaleString()}`}</p>
-                <p className="text-green-300">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+                <p>{`$${coin.current_price.toLocaleString()}`}</p>
+                {Math.sign(coin.price_change_percentage_24h) === -1 ? (
+                    <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+                ) : (
+                    <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+                )}{' '}
             </div>
         </div>
     )
@@ -31,7 +35,11 @@ const DesktopItem = ({ coin }: { coin: Coin }) => {
 
             <p className="col-span-1">{`$${coin.current_price.toLocaleString()}`}</p>
             <p className="col-span-1">{`$${coin.total_volume.toLocaleString()}`}</p>
-            <p className="col-span-1 text-green-300">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+            {Math.sign(coin.price_change_percentage_24h) === -1 ? (
+                <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+            ) : (
+                <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
+            )}
             <p className="col-span-1">{`$${coin.market_cap.toLocaleString()}`}</p>
         </div>
     )

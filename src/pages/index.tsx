@@ -7,7 +7,7 @@ const coinList: Coin[] = [
         symbol: 'btc',
         image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400',
         current_price: 67456,
-        price_change_percentage_24h: 111,
+        price_change_percentage_24h: -111,
         total_volume: 39891546137,
         market_cap: 458636859966,
     },
