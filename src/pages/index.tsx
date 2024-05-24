@@ -83,18 +83,20 @@ const HomePage = () => {
     }
 
     return (
-        <div className="container flex flex-col items-center justify-center gap-4">
-            <header className="flex h-full w-[20rem] flex-col items-center gap-4">
-                <h1 className="text-center text-3xl text-white">
-                    Crypto Price Tracker
-                </h1>
-                <input
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="h-[2rem] w-full rounded-lg px-2 placeholder:text-gray-400 focus:outline-none"
-                    placeholder="Search Crypto"
-                />
+        <>
+            <header className="flex w-full justify-center pt-4">
+                <div className="flex w-[20rem] flex-col gap-4 items-center justify-center">
+                    <h1 className="text-center text-3xl text-white">
+                        Crypto Price Tracker
+                    </h1>
+                    <input
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="h-[2rem] w-full rounded-lg px-2 placeholder:text-gray-400 focus:outline-none md:w-[20rem]"
+                        placeholder="Search Crypto"
+                    />
+                </div>
             </header>
-            <main className="flex w-full flex-col items-center justify-center gap-4">
+            <main className="container flex w-full flex-col items-center justify-center gap-4">
                 {isLoading && coinList.length === 0 ? (
                     <span className="text-white">Loading...</span>
                 ) : (
@@ -108,7 +110,7 @@ const HomePage = () => {
                     </>
                 )}
             </main>
-        </div>
+        </>
     )
 }
 
