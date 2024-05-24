@@ -38,14 +38,14 @@ const MobileItem: React.FC<ItemProps> = ({ coin, onClick }) => {
 
 const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
     return (
-        <div className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg  bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500">
-            <button
-                onClick={onClick}
-                className="col-span-1 flex w-[8rem] items-center gap-2 text-start hover:underline"
-            >
+        <button
+            onClick={onClick}
+            className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg  bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500"
+        >
+            <div className="col-span-1 flex w-[8rem] items-center gap-2 text-start">
                 <img width={30} src={coin.image} />
                 <p className="truncate">{coin.name}</p>
-            </button>
+            </div>
             <p className="col-span-1">{coin.symbol.toUpperCase()}</p>
             <p className="col-span-1">{formatPrice(coin.current_price)}</p>
             <p className="col-span-1">
@@ -57,7 +57,7 @@ const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                 <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
             )}
             <p className="col-span-1">{`${formatLargeCurrency(coin.market_cap)}`}</p>
-        </div>
+        </button>
     )
 }
 
