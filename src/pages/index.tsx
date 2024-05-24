@@ -1,7 +1,14 @@
 import CoinList from '@/features/coins/CoinList'
 import { Coin } from '@/features/coins/types'
-import { getCoinsMarketData } from '@/service/CoinService'
+import {
+    getCoinsMarketData,
+    loadPinnedCoinsFromLocalStorage,
+    savePinnedCoinsToLocalStorage,
+} from '@/service/CoinService'
 import { useEffect, useState } from 'react'
+
+const CURRENCY = 'usd'
+const COINS_COUNT = 100
 
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
@@ -11,14 +18,29 @@ const HomePage = () => {
     useEffect(() => {
         async function fetchCoins() {
             setIsLoading(true)
-            const coins = await getCoinsMarketData('usd', 100)
-            // add local index
+            const coins = await getCoinsMarketData(CURRENCY, COINS_COUNT)
+            // add local index to every coin
             const coinsWithIndex = coins.map((coin, index) => ({
                 ...coin,
                 index,
             }))
+
+            // load pinned coins from local storage
+            const pinnedCoins = loadPinnedCoinsFromLocalStorage()
+            const coinsWithPinned = coinsWithIndex
+                .map((coin) => ({
+                    ...coin,
+                    isPinned: pinnedCoins.includes(coin.id),
+                }))
+                .sort((a, b) => {
+                    if (a.isPinned !== b.isPinned) {
+                        return a.isPinned ? -1 : 1
+                    }
+                    return a.index - b.index
+                })
+
             setIsLoading(false)
-            setCoinList(coinsWithIndex)
+            setCoinList(coinsWithPinned)
         }
         fetchCoins()
     }, [])
@@ -33,8 +55,8 @@ const HomePage = () => {
     })
 
     function updateIsPinned(id: string, isPinned: boolean) {
-        setCoinList((prevCoinList) =>
-            prevCoinList
+        setCoinList((prevCoinList) => {
+            const updatedCoinList = prevCoinList
                 .map((coin) => (coin.id === id ? { ...coin, isPinned } : coin))
                 .sort((a, b) => {
                     if (a.isPinned !== b.isPinned) {
@@ -42,7 +64,15 @@ const HomePage = () => {
                     }
                     return a.index - b.index
                 })
-        )
+
+            // save pinned coins to local storage
+            const pinnedCoins = updatedCoinList
+                .filter((coin) => coin.isPinned)
+                .map((coin) => coin.id)
+            savePinnedCoinsToLocalStorage(pinnedCoins)
+
+            return updatedCoinList
+        })
     }
 
     return (

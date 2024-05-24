@@ -10,6 +10,27 @@ const options = {
     },
 }
 
+export async function getCoinsMarketData(
+    currency: string = 'usd',
+    count: number = 5
+): Promise<Coin[]> {
+    const response = await fetch(
+        API_URL +
+            `/coins/markets?vs_currency=${currency}&per_page=${count}&page=1`,
+        options
+    )
+    const coins: CoinDTO[] = await response.json()
+    return coins.map((coinDto) => mapCoinDTOToCoin(coinDto))
+}
+
+export function loadPinnedCoinsFromLocalStorage(): string[] {
+    return JSON.parse(localStorage.getItem('pinnedCoins') ?? '[]')
+}
+
+export function savePinnedCoinsToLocalStorage(pinnedCoins: string[]): void {
+    localStorage.setItem('pinnedCoins', JSON.stringify(pinnedCoins))
+}
+
 function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
     return {
         id: coinDTO.id,
@@ -23,17 +44,4 @@ function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
         index: -1,
         isPinned: false,
     }
-}
-
-export async function getCoinsMarketData(
-    currency: string = 'usd',
-    count: number = 5
-): Promise<Coin[]> {
-    const response = await fetch(
-        API_URL +
-            `/coins/markets?vs_currency=${currency}&per_page=${count}&page=1`,
-        options
-    )
-    const coins: CoinDTO[] = await response.json()
-    return coins.map((coinDto) => mapCoinDTOToCoin(coinDto))
 }
