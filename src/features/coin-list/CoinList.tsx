@@ -7,7 +7,7 @@ const CoinList = ({ coinList }: { coinList: Coin[] }) => {
     const isMobile = useIsMobile()
 
     return (
-        <section className="flex w-full flex-col gap-2">
+        <section className="flex w-full flex-col gap-3">
             {!isMobile && <CoinListHeader />}
             {coinList.map((coin, idx) => (
                 <CoinItem key={idx} coin={coin} />

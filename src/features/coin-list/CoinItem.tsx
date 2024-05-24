@@ -1,5 +1,6 @@
 import useIsMobile from '@/hooks/useIsMobile'
 import { Coin } from './types'
+import { useNavigate } from 'react-router-dom'
 
 const MobileItem = ({ coin }: { coin: Coin }) => {
     return (
@@ -8,9 +9,9 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
                 <div>
                     <img width={45} src={coin.image} />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col items-start">
                     <p>{coin.name}</p>
-                    <p className="">{coin.symbol.toUpperCase()}</p>
+                    <p>{coin.symbol.toUpperCase()}</p>
                 </div>
             </div>
             <div className="flex flex-col justify-center">
@@ -28,7 +29,7 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
 const DesktopItem = ({ coin }: { coin: Coin }) => {
     return (
         <div className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg bg-slate-600 px-4 text-white">
-            <div className="col-span-1 flex w-[8rem] items-center gap-2">
+            <div className="col-span-1 flex w-[8rem] items-center gap-2 text-start">
                 <img width={30} src={coin.image} />
                 <p>{coin.name}</p>
             </div>
@@ -48,8 +49,17 @@ const DesktopItem = ({ coin }: { coin: Coin }) => {
 
 const CoinItem = ({ coin }: { coin: Coin }) => {
     const isMobile = useIsMobile()
+    const navigate = useNavigate()
 
-    return isMobile ? <MobileItem coin={coin} /> : <DesktopItem coin={coin} />
+    return (
+        <button onClick={() => navigate(`/${coin.id}`)}>
+            {isMobile ? (
+                <MobileItem coin={coin} />
+            ) : (
+                <DesktopItem coin={coin} />
+            )}
+        </button>
+    )
 }
 
 export default CoinItem

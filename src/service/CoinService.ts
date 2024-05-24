@@ -12,6 +12,7 @@ const options = {
 
 function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
     return {
+        id: coinDTO.id,
         name: coinDTO.name,
         image: coinDTO.image,
         symbol: coinDTO.symbol,
