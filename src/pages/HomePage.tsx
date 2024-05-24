@@ -1,11 +1,11 @@
-import CoinList from '@/features/coins/CoinList'
-import LastUpdated from '@/features/coins/LastUpdated'
-import { Coin } from '@/features/coins/types'
+import CoinList from '@/features/list/components'
+import LastUpdated from '@/features/list/components/LastUpdated'
+import { Coin } from '@/features/list/types'
 import {
     getCoinsMarketData,
     loadPinnedCoinsFromLocalStorage,
     savePinnedCoinsToLocalStorage,
-} from '@/service/CoinService'
+} from '@/services/CoinService'
 import { useEffect, useState } from 'react'
 
 const CURRENCY = 'usd'
@@ -85,7 +85,7 @@ const HomePage = () => {
     return (
         <>
             <header className="flex w-full justify-center pt-4">
-                <div className="flex w-[20rem] flex-col gap-4 items-center justify-center">
+                <div className="flex w-[20rem] flex-col items-center justify-center gap-4">
                     <h1 className="text-center text-3xl text-white">
                         Crypto Price Tracker
                     </h1>

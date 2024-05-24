@@ -1,7 +1,7 @@
 import useIsMobile from '@/hooks/useIsMobile'
 import CoinItem from './CoinItem'
 import CoinListHeader from './CoinListHeader'
-import { Coin } from './types'
+import { Coin } from '../types'
 
 interface CoinListProps {
     coinList: Coin[]

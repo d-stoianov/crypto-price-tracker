@@ -34,7 +34,7 @@ export interface CoinDetailsDTO {
     web_slug: string
     asset_platform_id: any
     platforms: { [key: string]: string }
-    detail_platforms: {}
+    detail_platforms: any
     block_time_in_minutes: number
     hashing_algorithm: string
     categories: string[]

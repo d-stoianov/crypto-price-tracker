@@ -1,6 +1,6 @@
-import HomePage from '@/pages'
-import CoinOverview from '@/pages/coin-overview'
-import ErrorPage from '@/pages/error-page'
+import HomePage from '@/pages/HomePage'
+import CoinOverview from '@/pages/CoinOverview'
+import ErrorPage from '@/pages/ErrorPage'
 import { createBrowserRouter, RouteObject } from 'react-router-dom'
 
 const routes: RouteObject[] = [

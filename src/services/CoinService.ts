@@ -1,4 +1,5 @@
-import { Coin, CoinDetails } from '@/features/coins/types'
+import { Coin } from '@/features/list/types'
+import { CoinDetails } from '@/features/chart/types'
 import { CoinDetailsDTO, CoinDTO } from './types'
 
 const API_URL = 'https://api.coingecko.com/api/v3'

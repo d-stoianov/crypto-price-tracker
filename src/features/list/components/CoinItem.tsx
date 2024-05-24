@@ -1,5 +1,5 @@
 import useIsMobile from '@/hooks/useIsMobile'
-import { Coin } from './types'
+import { Coin } from '../types'
 import { useNavigate } from 'react-router-dom'
 import PinButton from './PinButton'
 import { formatPrice, formatLargeCurrency } from '@/utils/strings'

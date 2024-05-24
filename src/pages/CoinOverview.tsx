@@ -1,5 +1,6 @@
-import { CoinDetails } from '@/features/coins/types'
-import { getCoinsDataById } from '@/service/CoinService'
+import CoinChart from '@/features/chart/components'
+import { CoinDetails } from '@/features/chart/types'
+import { getCoinsDataById } from '@/services/CoinService'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -24,7 +25,7 @@ const CoinOverview = () => {
             }
         }
         fetchCoinData()
-    }, [])
+    }, [coinId])
 
     return (
         <div className="container flex flex-col items-center justify-center gap-8">
@@ -40,7 +41,9 @@ const CoinOverview = () => {
                             {coin.name}
                         </h1>
                     </header>
-                    <main className="w-full"></main>
+                    <main className="w-full">
+                        <CoinChart />
+                    </main>
                 </>
             )}
         </div>
