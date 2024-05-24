@@ -1,4 +1,5 @@
 import CoinList from '@/features/coins/CoinList'
+import LastUpdated from '@/features/coins/LastUpdated'
 import { Coin } from '@/features/coins/types'
 import {
     getCoinsMarketData,
@@ -9,11 +10,13 @@ import { useEffect, useState } from 'react'
 
 const CURRENCY = 'usd'
 const COINS_COUNT = 100
+const POLLING_INTERVAL = 60000 // 60 seconds
 
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [coinList, setCoinList] = useState<Coin[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 
     useEffect(() => {
         async function fetchCoins() {
@@ -39,10 +42,14 @@ const HomePage = () => {
                     return a.index - b.index
                 })
 
+            setLastUpdated(new Date())
             setIsLoading(false)
             setCoinList(coinsWithPinned)
         }
         fetchCoins()
+        const intervalId = setInterval(fetchCoins, POLLING_INTERVAL)
+
+        return () => clearInterval(intervalId)
     }, [])
 
     const filteredCoinList = coinList.filter((coin) => {
@@ -76,7 +83,7 @@ const HomePage = () => {
     }
 
     return (
-        <div className="container flex flex-col items-center justify-center gap-8">
+        <div className="container flex flex-col items-center justify-center gap-4">
             <header className="flex h-full w-[20rem] flex-col items-center gap-4">
                 <h1 className="text-center text-3xl text-white">
                     Crypto Price Tracker
@@ -87,16 +94,18 @@ const HomePage = () => {
                     placeholder="Search Crypto"
                 />
             </header>
-            <main className="w-full">
-                {isLoading ? (
-                    <span className="flex justify-center text-white">
-                        Loading...
-                    </span>
+            <main className="flex w-full flex-col items-center justify-center gap-4">
+                {isLoading && coinList.length === 0 ? (
+                    <span className="text-white">Loading...</span>
                 ) : (
-                    <CoinList
-                        updateIsPinned={updateIsPinned}
-                        coinList={filteredCoinList}
-                    />
+                    <>
+                        {lastUpdated && <LastUpdated date={lastUpdated} />}
+
+                        <CoinList
+                            updateIsPinned={updateIsPinned}
+                            coinList={filteredCoinList}
+                        />
+                    </>
                 )}
             </main>
         </div>
