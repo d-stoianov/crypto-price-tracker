@@ -1,5 +1,5 @@
-import { Coin } from '@/features/coins/types'
-import { CoinDTO } from './types'
+import { Coin, CoinDetails } from '@/features/coins/types'
+import { CoinDetailsDTO, CoinDTO } from './types'
 
 const API_URL = 'https://api.coingecko.com/api/v3'
 const options = {
@@ -23,6 +23,21 @@ export async function getCoinsMarketData(
     return coins.map((coinDto) => mapCoinDTOToCoin(coinDto))
 }
 
+export async function getCoinsDataById(coinId: string): Promise<CoinDetails> {
+    const response = await fetch(
+        API_URL +
+            `/coins/${coinId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
+        options
+    )
+
+    if (response.status === 404) {
+        throw new Error('Coin not found')
+    }
+
+    const coinDTO: CoinDetailsDTO = await response.json()
+    return mapCoinDetailsDTOToCoin(coinDTO)
+}
+
 export function loadPinnedCoinsFromLocalStorage(): string[] {
     return JSON.parse(localStorage.getItem('pinnedCoins') ?? '[]')
 }
@@ -43,5 +58,20 @@ function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
         market_cap: coinDTO.market_cap,
         index: -1,
         isPinned: false,
+    }
+}
+
+function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetails {
+    return {
+        id: coinDTO.id,
+        name: coinDTO.name,
+        image: coinDTO.image.large,
+        symbol: coinDTO.symbol,
+        current_price: coinDTO.market_data.current_price['usd'],
+        price_change_percentage_24h:
+            coinDTO.market_data.price_change_percentage_24h,
+        total_volume: coinDTO.market_data.total_volume['usd'],
+        market_cap: coinDTO.market_data.market_cap['usd'],
+        description: coinDTO.description['en'],
     }
 }

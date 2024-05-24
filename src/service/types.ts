@@ -1,4 +1,4 @@
-export type CoinDTO = {
+export interface CoinDTO {
     id: string
     symbol: string
     name: string
@@ -25,4 +25,43 @@ export type CoinDTO = {
     atl_date: string
     roi: any
     last_updated: string
+}
+
+export interface CoinDetailsDTO {
+    id: string
+    symbol: string
+    name: string
+    web_slug: string
+    asset_platform_id: any
+    platforms: { [key: string]: string }
+    detail_platforms: {}
+    block_time_in_minutes: number
+    hashing_algorithm: string
+    categories: string[]
+    preview_listing: boolean
+    public_notice: any
+    additional_notices: any[]
+    description: {
+        en: string
+    }
+    links: any
+    image: {
+        thumb: string
+        small: string
+        large: string
+    }
+    country_origin: string
+    genesis_date: string
+    sentiment_votes_up_percentage: number
+    sentiment_votes_down_percentage: number
+    watchlist_portfolio_users: number
+    market_cap_rank: number
+    status_updates: any[]
+    last_updated: string
+    market_data: {
+        current_price: { [key: string]: number }
+        total_volume: { [key: string]: number }
+        market_cap: { [key: string]: number }
+        price_change_percentage_24h: number
+    }
 }
