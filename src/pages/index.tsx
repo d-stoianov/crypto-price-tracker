@@ -1,31 +1,21 @@
 import CoinList from '@/features/coin-list/CoinList'
 import { Coin } from '@/features/coin-list/types'
+import { getCoinsMarketData } from '@/service/CoinService'
 import { useEffect, useState } from 'react'
-
-const coinList: Coin[] = [
-    {
-        name: 'Bitcoin',
-        symbol: 'btc',
-        image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400',
-        current_price: 67456,
-        price_change_percentage_24h: -111,
-        total_volume: 39891546137,
-        market_cap: 458636859966,
-    },
-    {
-        name: 'Ethereum',
-        symbol: 'eth',
-        image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
-        current_price: 67456,
-        price_change_percentage_24h: 42,
-        total_volume: 39891546137,
-        market_cap: 531636859966.51,
-    },
-]
 
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [coinList, setCoinList] = useState<Coin[]>([])
     const [filteredCoinList, setFilteredCoinList] = useState<Coin[]>(coinList)
+
+    useEffect(() => {
+        async function fetchCoins() {
+            const coins = await getCoinsMarketData("usd", 20)
+            setCoinList(coins)
+            setFilteredCoinList(coins)
+        }
+        fetchCoins()
+    }, [])
 
     useEffect(() => {
         const filtered = coinList.filter((coin) => {
