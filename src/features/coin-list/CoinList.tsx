@@ -1,10 +1,13 @@
+import useIsMobile from '@/hooks/useIsMobile'
 import CoinItem from './CoinItem'
 import CoinListHeader from './CoinListHeader'
 
 const CoinList = ({ coinList }: { coinList: Coin[] }) => {
+    const isMobile = useIsMobile()
+
     return (
         <section className="flex w-full flex-col gap-2">
-            <CoinListHeader />
+            {!isMobile && <CoinListHeader />}
             {coinList.map((coin, idx) => (
                 <CoinItem key={idx} coin={coin} />
             ))}
