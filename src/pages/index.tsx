@@ -1,4 +1,5 @@
 import CoinList from '@/features/coin-list/CoinList'
+import { useEffect, useState } from 'react'
 
 const coinList: Coin[] = [
     {
@@ -22,6 +23,26 @@ const coinList: Coin[] = [
 ]
 
 const HomePage = () => {
+    const [searchQuery, setSearchQuery] = useState<string>('')
+    const [filteredCoinList, setFilteredCoinList] = useState<Coin[]>(coinList)
+
+    useEffect(() => {
+        const filtered = coinList.filter((coin) => {
+            const coinName = coin.name.toLowerCase()
+            const coinSymbol = coin.symbol.toLowerCase()
+
+            // search by name and symbol
+            if (coinName.includes(searchQuery.toLowerCase())) {
+                return true
+            }
+            if (coinSymbol.includes(searchQuery.toLowerCase())) {
+                return true
+            }
+            return false
+        })
+        setFilteredCoinList(filtered)
+    }, [searchQuery])
+
     return (
         <div className="container flex flex-col items-center justify-center gap-8">
             <header className="flex h-full w-[20rem] flex-col items-center gap-4">
@@ -29,12 +50,13 @@ const HomePage = () => {
                     Crypto Price Tracker
                 </h1>
                 <input
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="h-[2rem] w-full rounded-lg px-2 placeholder:text-gray-400 focus:outline-none"
                     placeholder="Search Crypto"
                 />
             </header>
             <main className="w-full">
-                <CoinList coinList={coinList} />
+                <CoinList coinList={filteredCoinList} />
             </main>
         </div>
     )
