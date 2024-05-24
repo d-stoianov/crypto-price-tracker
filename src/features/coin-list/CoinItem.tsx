@@ -1,10 +1,19 @@
 import useIsMobile from '@/hooks/useIsMobile'
 import { Coin } from './types'
 import { useNavigate } from 'react-router-dom'
+import PinButton from './PinButton'
 
-const MobileItem = ({ coin }: { coin: Coin }) => {
+interface ItemProps {
+    coin: Coin
+    onClick: () => void
+}
+
+const MobileItem: React.FC<ItemProps> = ({ coin, onClick }) => {
     return (
-        <div className="flex h-[4rem] w-full justify-between rounded-3xl bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500">
+        <button
+            onClick={onClick}
+            className="flex h-[4rem] w-full justify-between rounded-3xl bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500"
+        >
             <div className="flex h-full items-center gap-2">
                 <div>
                     <img width={45} src={coin.image} />
@@ -14,7 +23,7 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
                     <p>{coin.symbol.toUpperCase()}</p>
                 </div>
             </div>
-            <div className="flex flex-col justify-center">
+            <div className="flex h-full flex-col justify-center">
                 <p>{`$${coin.current_price.toLocaleString()}`}</p>
                 {Math.sign(coin.price_change_percentage_24h) === -1 ? (
                     <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
@@ -22,17 +31,20 @@ const MobileItem = ({ coin }: { coin: Coin }) => {
                     <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
                 )}{' '}
             </div>
-        </div>
+        </button>
     )
 }
 
-const DesktopItem = ({ coin }: { coin: Coin }) => {
+const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
     return (
         <div className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg  bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500">
-            <div className="col-span-1 flex w-[8rem] items-center gap-2 text-start">
+            <button
+                onClick={onClick}
+                className="col-span-1 flex w-[8rem] items-center gap-2 text-start hover:underline"
+            >
                 <img width={30} src={coin.image} />
                 <p>{coin.name}</p>
-            </div>
+            </button>
             <p className="col-span-1">{coin.symbol.toUpperCase()}</p>
 
             <p className="col-span-1">{`$${coin.current_price.toLocaleString()}`}</p>
@@ -52,13 +64,20 @@ const CoinItem = ({ coin }: { coin: Coin }) => {
     const navigate = useNavigate()
 
     return (
-        <button onClick={() => navigate(`/${coin.id}`)}>
+        <div className="flex items-center gap-2">
             {isMobile ? (
-                <MobileItem coin={coin} />
+                <MobileItem
+                    onClick={() => navigate(`/${coin.id}`)}
+                    coin={coin}
+                />
             ) : (
-                <DesktopItem coin={coin} />
+                <DesktopItem
+                    onClick={() => navigate(`/${coin.id}`)}
+                    coin={coin}
+                />
             )}
-        </button>
+            <PinButton onClick={() => console.log(`pin ${coin.id}`)} />
+        </div>
     )
 }
 
