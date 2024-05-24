@@ -1,5 +1,6 @@
 export type Coin = {
     id: string
+    index: number // local index
     name: string
     image: string
     symbol: string

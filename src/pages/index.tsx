@@ -12,8 +12,13 @@ const HomePage = () => {
         async function fetchCoins() {
             setIsLoading(true)
             const coins = await getCoinsMarketData('usd', 100)
+            // add local index
+            const coinsWithIndex = coins.map((coin, index) => ({
+                ...coin,
+                index,
+            }))
             setIsLoading(false)
-            setCoinList(coins)
+            setCoinList(coinsWithIndex)
         }
         fetchCoins()
     }, [])
@@ -31,9 +36,12 @@ const HomePage = () => {
         setCoinList((prevCoinList) =>
             prevCoinList
                 .map((coin) => (coin.id === id ? { ...coin, isPinned } : coin))
-                .sort((a, b) =>
-                    a.isPinned === b.isPinned ? 0 : a.isPinned ? -1 : 1
-                )
+                .sort((a, b) => {
+                    if (a.isPinned !== b.isPinned) {
+                        return a.isPinned ? -1 : 1
+                    }
+                    return a.index - b.index
+                })
         )
     }
 
