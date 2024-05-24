@@ -1,7 +1,6 @@
-const LastUpdated = ({ date }: { date: Date }) => {
-    const formatWithLeadingZeros = (number: number) =>
-        number.toString().padStart(2, '0')
+import { formatWithLeadingZeros } from '@/utils/strings'
 
+const LastUpdated = ({ date }: { date: Date }) => {
     return (
         <p className="text-white">
             Last updated: {formatWithLeadingZeros(date.getHours())}:

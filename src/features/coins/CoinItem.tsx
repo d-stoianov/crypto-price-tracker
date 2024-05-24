@@ -2,6 +2,7 @@ import useIsMobile from '@/hooks/useIsMobile'
 import { Coin } from './types'
 import { useNavigate } from 'react-router-dom'
 import PinButton from './PinButton'
+import { formatPrice, formatLargeCurrency } from '@/utils/strings'
 
 interface ItemProps {
     coin: Coin
@@ -19,12 +20,12 @@ const MobileItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                     <img width={45} src={coin.image} />
                 </div>
                 <div className="flex flex-col items-start">
-                    <p className="truncate max-w-[8rem]">{coin.name}</p>
+                    <p className="max-w-[8rem] truncate">{coin.name}</p>
                     <p>{coin.symbol.toUpperCase()}</p>
                 </div>
             </div>
             <div className="flex h-full flex-col justify-center">
-                <p>{`$${coin.current_price.toLocaleString()}`}</p>
+                <p className="col-span-1">{formatPrice(coin.current_price)}</p>
                 {Math.sign(coin.price_change_percentage_24h) === -1 ? (
                     <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
                 ) : (
@@ -46,15 +47,16 @@ const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                 <p className="truncate">{coin.name}</p>
             </button>
             <p className="col-span-1">{coin.symbol.toUpperCase()}</p>
-
-            <p className="col-span-1">{`$${coin.current_price.toLocaleString()}`}</p>
-            <p className="col-span-1">{`$${coin.total_volume.toLocaleString()}`}</p>
+            <p className="col-span-1">{formatPrice(coin.current_price)}</p>
+            <p className="col-span-1">
+                {formatLargeCurrency(coin.total_volume)}
+            </p>
             {Math.sign(coin.price_change_percentage_24h) === -1 ? (
                 <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
             ) : (
                 <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
             )}
-            <p className="col-span-1">{`$${coin.market_cap.toLocaleString()}`}</p>
+            <p className="col-span-1">{`${formatLargeCurrency(coin.market_cap)}`}</p>
         </div>
     )
 }
