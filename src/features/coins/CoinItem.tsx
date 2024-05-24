@@ -19,7 +19,7 @@ const MobileItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                     <img width={45} src={coin.image} />
                 </div>
                 <div className="flex flex-col items-start">
-                    <p>{coin.name}</p>
+                    <p className="truncate max-w-[8rem]">{coin.name}</p>
                     <p>{coin.symbol.toUpperCase()}</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@ const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                 className="col-span-1 flex w-[8rem] items-center gap-2 text-start hover:underline"
             >
                 <img width={30} src={coin.image} />
-                <p>{coin.name}</p>
+                <p className="truncate">{coin.name}</p>
             </button>
             <p className="col-span-1">{coin.symbol.toUpperCase()}</p>
 
