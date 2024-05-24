@@ -3,14 +3,23 @@ import CoinItem from './CoinItem'
 import CoinListHeader from './CoinListHeader'
 import { Coin } from './types'
 
-const CoinList = ({ coinList }: { coinList: Coin[] }) => {
+interface CoinListProps {
+    coinList: Coin[]
+    updateIsPinned: (id: string, isPinned: boolean) => void
+}
+
+const CoinList: React.FC<CoinListProps> = ({ coinList, updateIsPinned }) => {
     const isMobile = useIsMobile()
 
     return (
         <section className="flex w-full flex-col gap-3">
             {!isMobile && <CoinListHeader />}
             {coinList.map((coin, idx) => (
-                <CoinItem key={idx} coin={coin} />
+                <CoinItem
+                    updateIsPinned={updateIsPinned}
+                    key={idx}
+                    coin={coin}
+                />
             ))}
         </section>
     )

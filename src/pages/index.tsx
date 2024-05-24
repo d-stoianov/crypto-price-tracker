@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [coinList, setCoinList] = useState<Coin[]>([])
-    const [filteredCoinList, setFilteredCoinList] = useState<Coin[]>(coinList)
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -15,27 +14,28 @@ const HomePage = () => {
             const coins = await getCoinsMarketData('usd', 100)
             setIsLoading(false)
             setCoinList(coins)
-            setFilteredCoinList(coins)
         }
         fetchCoins()
     }, [])
 
-    useEffect(() => {
-        const filtered = coinList.filter((coin) => {
-            const coinName = coin.name.toLowerCase()
-            const coinSymbol = coin.symbol.toLowerCase()
+    const filteredCoinList = coinList.filter((coin) => {
+        const coinName = coin.name.toLowerCase()
+        const coinSymbol = coin.symbol.toLowerCase()
+        const query = searchQuery.toLowerCase()
 
-            // search by name and symbol
-            if (coinName.includes(searchQuery.toLowerCase())) {
-                return true
-            }
-            if (coinSymbol.includes(searchQuery.toLowerCase())) {
-                return true
-            }
-            return false
-        })
-        setFilteredCoinList(filtered)
-    }, [searchQuery])
+        // search by name and symbol
+        return coinName.includes(query) || coinSymbol.includes(query)
+    })
+
+    function updateIsPinned(id: string, isPinned: boolean) {
+        setCoinList((prevCoinList) =>
+            prevCoinList
+                .map((coin) => (coin.id === id ? { ...coin, isPinned } : coin))
+                .sort((a, b) =>
+                    a.isPinned === b.isPinned ? 0 : a.isPinned ? -1 : 1
+                )
+        )
+    }
 
     return (
         <div className="container flex flex-col items-center justify-center gap-8">
@@ -55,7 +55,10 @@ const HomePage = () => {
                         Loading...
                     </span>
                 ) : (
-                    <CoinList coinList={filteredCoinList} />
+                    <CoinList
+                        updateIsPinned={updateIsPinned}
+                        coinList={filteredCoinList}
+                    />
                 )}
             </main>
         </div>

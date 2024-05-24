@@ -6,11 +6,17 @@ const PinIcon = () => {
     )
 }
 
-const PinButton = ({ onClick }: { onClick: () => void }) => {
+const PinButton = ({
+    onClick,
+    isActive,
+}: {
+    onClick: () => void
+    isActive: boolean
+}) => {
     return (
         <button
             onClick={onClick}
-            className="flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white text-white transition duration-100 hover:bg-white hover:text-black"
+            className={`flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white transition duration-100 hover:bg-white hover:text-black ${isActive ? 'bg-white text-black' : 'text-white'}`}
         >
             <PinIcon />
         </button>

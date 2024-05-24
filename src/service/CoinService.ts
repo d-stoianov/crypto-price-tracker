@@ -20,6 +20,7 @@ function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
         price_change_percentage_24h: coinDTO.price_change_percentage_24h,
         total_volume: coinDTO.total_volume,
         market_cap: coinDTO.market_cap,
+        isPinned: false,
     }
 }
 

@@ -59,7 +59,13 @@ const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
     )
 }
 
-const CoinItem = ({ coin }: { coin: Coin }) => {
+const CoinItem = ({
+    coin,
+    updateIsPinned,
+}: {
+    coin: Coin
+    updateIsPinned: (id: string, isPinned: boolean) => void
+}) => {
     const isMobile = useIsMobile()
     const navigate = useNavigate()
 
@@ -76,7 +82,10 @@ const CoinItem = ({ coin }: { coin: Coin }) => {
                     coin={coin}
                 />
             )}
-            <PinButton onClick={() => console.log(`pin ${coin.id}`)} />
+            <PinButton
+                isActive={coin.isPinned}
+                onClick={() => updateIsPinned(coin.id, !coin.isPinned)}
+            />
         </div>
     )
 }
