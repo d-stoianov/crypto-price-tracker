@@ -5,8 +5,8 @@ const CoinListHeader = () => {
             <p className="col-span-1">Symbol</p>
             <p className="col-span-1">Price</p>
             <p className="col-span-1">Volume</p>
-            <p className="col-span-1">Change</p>
-            <p className="col-span-1">Mkt. Cap</p>
+            <p className="col-span-1">24h Change</p>
+            <p className="col-span-1">Market Cap</p>
         </div>
     )
 }
