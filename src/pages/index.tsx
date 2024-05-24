@@ -1,5 +1,5 @@
-import CoinList from '@/features/coin-list/CoinList'
-import { Coin } from '@/features/coin-list/types'
+import CoinList from '@/features/coins/CoinList'
+import { Coin } from '@/features/coins/types'
 import { getCoinsMarketData } from '@/service/CoinService'
 import { useEffect, useState } from 'react'
 
@@ -51,7 +51,9 @@ const HomePage = () => {
             </header>
             <main className="w-full">
                 {isLoading ? (
-                    <span className='text-white flex justify-center'>Loading...</span>
+                    <span className="flex justify-center text-white">
+                        Loading...
+                    </span>
                 ) : (
                     <CoinList coinList={filteredCoinList} />
                 )}
