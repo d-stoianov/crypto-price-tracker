@@ -7,10 +7,13 @@ const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [coinList, setCoinList] = useState<Coin[]>([])
     const [filteredCoinList, setFilteredCoinList] = useState<Coin[]>(coinList)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
         async function fetchCoins() {
-            const coins = await getCoinsMarketData("usd", 20)
+            setIsLoading(true)
+            const coins = await getCoinsMarketData('usd', 100)
+            setIsLoading(false)
             setCoinList(coins)
             setFilteredCoinList(coins)
         }
@@ -47,7 +50,11 @@ const HomePage = () => {
                 />
             </header>
             <main className="w-full">
-                <CoinList coinList={filteredCoinList} />
+                {isLoading ? (
+                    <span className='text-white flex justify-center'>Loading...</span>
+                ) : (
+                    <CoinList coinList={filteredCoinList} />
+                )}
             </main>
         </div>
     )
