@@ -1,4 +1,5 @@
 import CoinList from '@/features/coin-list/CoinList'
+import { Coin } from '@/features/coin-list/types'
 import { useEffect, useState } from 'react'
 
 const coinList: Coin[] = [

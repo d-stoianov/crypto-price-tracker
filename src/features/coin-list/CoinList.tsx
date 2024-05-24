@@ -1,6 +1,7 @@
 import useIsMobile from '@/hooks/useIsMobile'
 import CoinItem from './CoinItem'
 import CoinListHeader from './CoinListHeader'
+import { Coin } from './types'
 
 const CoinList = ({ coinList }: { coinList: Coin[] }) => {
     const isMobile = useIsMobile()

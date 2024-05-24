@@ -1,4 +1,5 @@
 import useIsMobile from '@/hooks/useIsMobile'
+import { Coin } from './types'
 
 const MobileItem = ({ coin }: { coin: Coin }) => {
     return (

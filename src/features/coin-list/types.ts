@@ -1,4 +1,4 @@
-type Coin = {
+export type Coin = {
     name: string
     image: string
     symbol: string
