@@ -1,6 +1,7 @@
 import { CoinType } from '@/features/list/types'
-import { CoinDetailsType } from '@/features/chart/types'
-import { CoinDetailsDTO, CoinDTO } from './types'
+import { CoinChartData, CoinDetailsType } from '@/features/chart/types'
+import { CoinDetailsDTO, CoinDTO, CoinChartDataDTO } from './types'
+import { formatPrice } from '@/utils/strings'
 
 const API_URL = 'https://api.coingecko.com/api/v3'
 const options = {
@@ -24,7 +25,9 @@ export async function getCoinsMarketData(
     return coins.map((coinDto) => mapCoinDTOToCoin(coinDto))
 }
 
-export async function getCoinsDataById(coinId: string): Promise<CoinDetailsType> {
+export async function getCoinDataById(
+    coinId: string
+): Promise<CoinDetailsType> {
     const response = await fetch(
         API_URL +
             `/coins/${coinId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
@@ -36,7 +39,31 @@ export async function getCoinsDataById(coinId: string): Promise<CoinDetailsType>
     }
 
     const coinDTO: CoinDetailsDTO = await response.json()
-    return mapCoinDetailsDTOToCoin(coinDTO)
+    return mapCoinDetailsDTOToCoinDetails(coinDTO)
+}
+
+export async function getCoinChartPriceDataById(
+    coinId: string,
+    dateRange: {
+        start: Date
+        end: Date
+    }
+): Promise<CoinChartData> {
+    const fromTimestamp = Math.floor(dateRange.start.getTime() / 1000)
+    const toTimestamp = Math.floor(dateRange.end.getTime() / 1000)
+
+    const response = await fetch(
+        API_URL +
+            `/coins/${coinId}/market_chart/range?vs_currency=usd&from=${fromTimestamp}&to=${toTimestamp}`,
+        options
+    )
+
+    if (response.status === 404) {
+        throw new Error('Coin not found')
+    }
+
+    const coinChartData: CoinChartDataDTO = await response.json()
+    return mapCoinChartDataToCoinPriceData(coinChartData)
 }
 
 export function loadPinnedCoinsFromLocalStorage(): string[] {
@@ -62,7 +89,9 @@ function mapCoinDTOToCoin(coinDTO: CoinDTO): CoinType {
     }
 }
 
-function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetailsType {
+function mapCoinDetailsDTOToCoinDetails(
+    coinDTO: CoinDetailsDTO
+): CoinDetailsType {
     return {
         id: coinDTO.id,
         name: coinDTO.name,
@@ -77,4 +106,18 @@ function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetailsType {
         market_cap: coinDTO.market_data.market_cap['usd'],
         description: coinDTO.description['en'],
     }
+}
+
+function mapCoinChartDataToCoinPriceData(
+    coinChartDataDTO: CoinChartDataDTO
+): CoinChartData {
+    if (coinChartDataDTO.prices.length === 0) {
+        return []
+    }
+    return coinChartDataDTO.prices.map((dataPointArray) => {
+        return {
+            y: new Date(dataPointArray[0]),
+            x: dataPointArray[1],
+        }
+    })
 }

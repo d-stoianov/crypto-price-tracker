@@ -11,3 +11,10 @@ export type CoinDetailsType = {
     market_cap: number
     description: string
 }
+
+interface DataPoint {
+    x: number
+    y: Date
+}
+
+export type CoinChartData = DataPoint[]

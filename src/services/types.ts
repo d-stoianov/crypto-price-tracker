@@ -67,3 +67,14 @@ export interface CoinDetailsDTO {
         price_change_percentage_24h: number
     }
 }
+
+interface DataPointDTO {
+    0: number
+    1: number
+}
+
+export interface CoinChartDataDTO {
+    prices: DataPointDTO[]
+    market_caps: DataPointDTO[]
+    total_volumes: DataPointDTO[]
+}
