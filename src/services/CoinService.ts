@@ -2,7 +2,7 @@ import { CoinType } from '@/features/list/types'
 import { CoinChartData, CoinDetailsType } from '@/features/chart/types'
 import { CoinDetailsDTO, CoinDTO, CoinChartDataDTO } from './types'
 
-const API_URL = 'https://api.coingecko.com/api/v3'
+const API_URL = import.meta.env.VITE_API_URL
 const options = {
     method: 'GET',
     headers: {
