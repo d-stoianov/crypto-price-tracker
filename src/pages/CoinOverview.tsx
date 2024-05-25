@@ -28,25 +28,31 @@ const CoinOverview = () => {
     }, [coinId])
 
     return (
-        <div className="container flex flex-col items-center justify-center gap-8">
+        <>
             {error ? (
-                <span className="text-white">{error}</span>
+                <span className="container flex justify-center text-white">
+                    {error}
+                </span>
             ) : coin === null ? (
-                <span className="text-white">Loading...</span>
+                <span className="container flex justify-center text-white">
+                    Loading...
+                </span>
             ) : (
                 <>
-                    <header className="flex h-full items-center gap-4">
-                        <img width={40} src={coin.image} />
-                        <h1 className="text-center text-3xl text-white">
-                            {coin.name}
-                        </h1>
+                    <header className="flex w-full justify-center pt-4">
+                        <div className="flex items-center justify-center gap-4">
+                            <img width={40} src={coin.image} />
+                            <h1 className="text-center text-3xl text-white">
+                                {coin.name}
+                            </h1>
+                        </div>
                     </header>
-                    <main className="w-full">
+                    <main className="container mt-[1rem] flex flex-col">
                         <CoinChart />
                     </main>
                 </>
             )}
-        </div>
+        </>
     )
 }
 
