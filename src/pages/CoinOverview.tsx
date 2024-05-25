@@ -1,6 +1,7 @@
 import CoinChart from '@/features/chart/components'
 import CoinDescription from '@/features/chart/components/CoinDescription'
-import CoinPriceDisplay from '@/features/chart/components/CoinHeader'
+import CoinPriceDisplay from '@/features/chart/components/CoinPriceDisplay'
+import CoinOverviewSkeleton from '@/features/chart/components/CoinOverviewSkeleton'
 import CoinStatsPanel from '@/features/chart/components/CoinStatsPanel'
 import { CoinChartData, CoinDetailsType } from '@/features/chart/types'
 import {
@@ -68,25 +69,25 @@ const CoinOverview = () => {
         )
     }
 
-    if (!coinDetailsData || !coinChartData) {
-        return (
-            <span className="container flex justify-center text-white">
-                Loading...
-            </span>
-        )
-    }
+    const isLoading = !coinDetailsData || !coinChartData
 
     return (
         <main className="container mt-[1rem] flex flex-col gap-4">
-            <CoinPriceDisplay coin={coinDetailsData} />
-            <CoinChart chartData={coinChartData} />
-            <CoinStatsPanel coin={coinDetailsData} />
-            {coinDetailsData.description.length > 0 && (
-                <CoinDescription
-                    title={`About ${coinDetailsData.name}`}
-                    description={coinDetailsData.description}
-                />
-            )}  
+            {isLoading ? (
+                <CoinOverviewSkeleton />
+            ) : (
+                <>
+                    <CoinPriceDisplay coin={coinDetailsData} />
+                    <CoinChart chartData={coinChartData} />
+                    <CoinStatsPanel coin={coinDetailsData} />
+                    {coinDetailsData.description.length > 0 && (
+                        <CoinDescription
+                            title={`About ${coinDetailsData.name}`}
+                            description={coinDetailsData.description}
+                        />
+                    )}
+                </>
+            )}
         </main>
     )
 }
