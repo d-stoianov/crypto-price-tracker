@@ -6,7 +6,7 @@ export const formatPrice = (num: number): string => {
     return num.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 2,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 2,
     })
 }

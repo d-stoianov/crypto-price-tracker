@@ -1,6 +1,6 @@
 import CoinList from '@/features/list/components'
 import LastUpdated from '@/features/list/components/LastUpdated'
-import { Coin } from '@/features/list/types'
+import { CoinType } from '@/features/list/types'
 import {
     getCoinsMarketData,
     loadPinnedCoinsFromLocalStorage,
@@ -14,7 +14,7 @@ const POLLING_INTERVAL = 60000 // 60 seconds
 
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('')
-    const [coinList, setCoinList] = useState<Coin[]>([])
+    const [coinList, setCoinList] = useState<CoinType[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 

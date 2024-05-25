@@ -1,5 +1,5 @@
-import { Coin } from '@/features/list/types'
-import { CoinDetails } from '@/features/chart/types'
+import { CoinType } from '@/features/list/types'
+import { CoinDetailsType } from '@/features/chart/types'
 import { CoinDetailsDTO, CoinDTO } from './types'
 
 const API_URL = 'https://api.coingecko.com/api/v3'
@@ -14,7 +14,7 @@ const options = {
 export async function getCoinsMarketData(
     currency: string = 'usd',
     count: number = 5
-): Promise<Coin[]> {
+): Promise<CoinType[]> {
     const response = await fetch(
         API_URL +
             `/coins/markets?vs_currency=${currency}&per_page=${count}&page=1`,
@@ -24,7 +24,7 @@ export async function getCoinsMarketData(
     return coins.map((coinDto) => mapCoinDTOToCoin(coinDto))
 }
 
-export async function getCoinsDataById(coinId: string): Promise<CoinDetails> {
+export async function getCoinsDataById(coinId: string): Promise<CoinDetailsType> {
     const response = await fetch(
         API_URL +
             `/coins/${coinId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
@@ -47,7 +47,7 @@ export function savePinnedCoinsToLocalStorage(pinnedCoins: string[]): void {
     localStorage.setItem('pinnedCoins', JSON.stringify(pinnedCoins))
 }
 
-function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
+function mapCoinDTOToCoin(coinDTO: CoinDTO): CoinType {
     return {
         id: coinDTO.id,
         name: coinDTO.name,
@@ -62,7 +62,7 @@ function mapCoinDTOToCoin(coinDTO: CoinDTO): Coin {
     }
 }
 
-function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetails {
+function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetailsType {
     return {
         id: coinDTO.id,
         name: coinDTO.name,
@@ -71,6 +71,8 @@ function mapCoinDetailsDTOToCoin(coinDTO: CoinDetailsDTO): CoinDetails {
         current_price: coinDTO.market_data.current_price['usd'],
         price_change_percentage_24h:
             coinDTO.market_data.price_change_percentage_24h,
+        total_supply: coinDTO.market_data.total_supply,
+        max_supply: coinDTO.market_data.max_supply,
         total_volume: coinDTO.market_data.total_volume['usd'],
         market_cap: coinDTO.market_data.market_cap['usd'],
         description: coinDTO.description['en'],

@@ -59,6 +59,8 @@ export interface CoinDetailsDTO {
     status_updates: any[]
     last_updated: string
     market_data: {
+        max_supply: number
+        total_supply: number
         current_price: { [key: string]: number }
         total_volume: { [key: string]: number }
         market_cap: { [key: string]: number }

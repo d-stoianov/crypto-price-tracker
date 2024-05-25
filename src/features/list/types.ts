@@ -1,4 +1,4 @@
-export type Coin = {
+export type CoinType = {
     id: string
     index: number // local index
     name: string

@@ -1,10 +1,10 @@
 import useIsMobile from '@/hooks/useIsMobile'
 import CoinItem from './CoinItem'
 import CoinListHeader from './CoinListHeader'
-import { Coin } from '../types'
+import { CoinType } from '../types'
 
 interface CoinListProps {
-    coinList: Coin[]
+    coinList: CoinType[]
     updateIsPinned: (id: string, isPinned: boolean) => void
 }
 

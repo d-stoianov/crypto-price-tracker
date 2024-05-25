@@ -1,4 +1,4 @@
-export type CoinDetails = {
+export type CoinDetailsType = {
     id: string
     name: string
     image: string
@@ -6,6 +6,8 @@ export type CoinDetails = {
     current_price: number
     price_change_percentage_24h: number
     total_volume: number
+    total_supply: number
+    max_supply: number
     market_cap: number
     description: string
 }

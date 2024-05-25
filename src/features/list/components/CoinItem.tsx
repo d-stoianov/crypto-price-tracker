@@ -1,11 +1,11 @@
 import useIsMobile from '@/hooks/useIsMobile'
-import { Coin } from '../types'
+import { CoinType } from '../types'
 import { useNavigate } from 'react-router-dom'
 import PinButton from './PinButton'
 import { formatPrice, formatLargeCurrency } from '@/utils/strings'
 
 interface ItemProps {
-    coin: Coin
+    coin: CoinType
     onClick: () => void
 }
 
@@ -65,7 +65,7 @@ const CoinItem = ({
     coin,
     updateIsPinned,
 }: {
-    coin: Coin
+    coin: CoinType
     updateIsPinned: (id: string, isPinned: boolean) => void
 }) => {
     const isMobile = useIsMobile()
