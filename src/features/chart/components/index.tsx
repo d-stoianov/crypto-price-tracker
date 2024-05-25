@@ -42,6 +42,12 @@ const CoinChart = ({ chartData }: { chartData: CoinChartData }) => {
                 },
             },
         },
+        plugins: {
+            tooltip: {
+                backgroundColor: '#475569',
+                displayColors: false,
+            },
+        },
     }
 
     const data = {
@@ -54,10 +60,9 @@ const CoinChart = ({ chartData }: { chartData: CoinChartData }) => {
         ),
         datasets: [
             {
-                fill: true,
                 data: chartData.map((item) => item.x),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: '#60a5fa',
+                backgroundColor: '#60a5fa',
             },
         ],
     }

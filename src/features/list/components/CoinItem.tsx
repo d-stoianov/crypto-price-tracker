@@ -3,6 +3,7 @@ import { CoinType } from '../types'
 import { useNavigate } from 'react-router-dom'
 import PinButton from './PinButton'
 import { formatPrice, formatLargeCurrency } from '@/utils/strings'
+import PriceChange from '@/features/shared/PriceChange'
 
 interface ItemProps {
     coin: CoinType
@@ -25,12 +26,10 @@ const MobileItem: React.FC<ItemProps> = ({ coin, onClick }) => {
                 </div>
             </div>
             <div className="flex h-full flex-col justify-center">
-                <p className="col-span-1">{formatPrice(coin.current_price)}</p>
-                {Math.sign(coin.price_change_percentage_24h) === -1 ? (
-                    <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
-                ) : (
-                    <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
-                )}{' '}
+                <p className="formatLargeCurrency">
+                    {formatPrice(coin.current_price)}
+                </p>
+                <PriceChange value={coin.price_change_percentage_24h} />
             </div>
         </button>
     )
@@ -42,21 +41,17 @@ const DesktopItem: React.FC<ItemProps> = ({ coin, onClick }) => {
             onClick={onClick}
             className="grid h-[3rem] w-full grid-cols-6 place-items-center rounded-lg  bg-slate-600 px-4 text-white transition duration-100 hover:bg-slate-500"
         >
-            <div className="col-span-1 flex w-[8rem] items-center gap-2 text-start">
+            <div className="formatLargeCurrency flex w-[8rem] items-center gap-2 text-start">
                 <img width={30} src={coin.image} />
                 <p className="truncate">{coin.name}</p>
             </div>
-            <p className="col-span-1">{coin.symbol.toUpperCase()}</p>
-            <p className="col-span-1">{formatPrice(coin.current_price)}</p>
-            <p className="col-span-1">
-                {formatLargeCurrency(coin.total_volume)}
+            <p className="formatLargeCurrency">{coin.symbol.toUpperCase()}</p>
+            <p className="formatLargeCurrency">
+                {formatPrice(coin.current_price)}
             </p>
-            {Math.sign(coin.price_change_percentage_24h) === -1 ? (
-                <p className="col-span-1 text-red-400">{`${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
-            ) : (
-                <p className="col-span-1 text-green-400">{`+${coin.price_change_percentage_24h.toFixed(2)}%`}</p>
-            )}
-            <p className="col-span-1">{`${formatLargeCurrency(coin.market_cap)}`}</p>
+            <p>{formatLargeCurrency(coin.total_volume)}</p>
+            <PriceChange value={coin.price_change_percentage_24h} />
+            <p>{`${formatLargeCurrency(coin.market_cap)}`}</p>
         </button>
     )
 }

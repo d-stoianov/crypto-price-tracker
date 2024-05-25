@@ -1,5 +1,6 @@
 import { formatPrice } from '@/utils/strings'
 import { CoinDetailsType } from '../types'
+import PriceChange from '@/features/shared/PriceChange'
 
 const CoinPriceDisplay = ({ coin }: { coin: CoinDetailsType }) => {
     return (
@@ -19,9 +20,7 @@ const CoinPriceDisplay = ({ coin }: { coin: CoinDetailsType }) => {
                 <p className="text-4xl text-white">
                     {formatPrice(coin.current_price)}
                 </p>
-                <p className="text-2xl text-green-400">
-                    {coin.price_change_percentage_24h}%
-                </p>
+                <PriceChange value={coin.price_change_percentage_24h} />
             </div>
         </div>
     )
