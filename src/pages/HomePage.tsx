@@ -1,5 +1,6 @@
 import CoinList from '@/features/list/components'
 import LastUpdated from '@/features/list/components/LastUpdated'
+import SkeletonLoader from '@/features/list/components/CoinListSkeleton'
 import { CoinType } from '@/features/list/types'
 import {
     getCoinsMarketData,
@@ -9,7 +10,7 @@ import {
 import { useEffect, useState } from 'react'
 
 const CURRENCY = 'usd'
-const COINS_COUNT = 100
+const COINS_COUNT = 50
 const POLLING_INTERVAL = 60000 // 60 seconds
 
 const HomePage = () => {
@@ -98,7 +99,7 @@ const HomePage = () => {
             </header>
             <main className="container flex w-full flex-col items-center justify-center gap-4">
                 {isLoading && coinList.length === 0 ? (
-                    <span className="text-white">Loading...</span>
+                    <SkeletonLoader />
                 ) : (
                     <>
                         {lastUpdated && <LastUpdated date={lastUpdated} />}

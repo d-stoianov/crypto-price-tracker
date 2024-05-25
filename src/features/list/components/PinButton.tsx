@@ -9,14 +9,16 @@ const PinIcon = () => {
 const PinButton = ({
     onClick,
     isActive,
+    isDisabled,
 }: {
     onClick: () => void
     isActive: boolean
+    isDisabled?: boolean
 }) => {
     return (
         <button
             onClick={onClick}
-            className={`flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white transition duration-100 ${isActive ? 'bg-white text-black' : 'text-white'} md:hover:bg-white md:hover:text-black`}
+            className={`flex h-[2rem] w-[3rem] items-center justify-center rounded-lg border border-white transition duration-100 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'} ${isActive ? 'bg-white text-black' : 'text-white'} md:hover:bg-white md:hover:text-black`}
         >
             <PinIcon />
         </button>
