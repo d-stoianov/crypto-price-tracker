@@ -49,11 +49,7 @@ const data = {
 }
 
 const CoinChart = () => {
-    return (
-        <div className="justify-center relative flex h-[40vh] w-full">
-            <Line options={options} data={data} />
-        </div>
-    )
+    return <Line options={options} data={data} />
 }
 
 export default CoinChart

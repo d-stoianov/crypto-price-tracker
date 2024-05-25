@@ -9,3 +9,7 @@ body {
 .container {
     @apply mx-auto max-w-[1024px] p-4;
 }
+
+p > a {
+    @apply text-blue-500 underline visited:text-purple-600 hover:text-blue-700;
+}
