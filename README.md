@@ -1,5 +1,8 @@
 # Crypto Price Tracker
 
+<img width="1510" alt="screenshot-1" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fb198de4-86d6-4805-bca4-08d22a109686">
+<img width="1510" alt="screenshot-2" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fbba4b3b-56a3-4483-8d53-d376d25919c7">
+
 This project is a React application for tracking cryptocurrency prices. The app fetches data from the CoinGecko API and displays it in an easy-to-use interface. Users can see a list of coins, view details about a specific coin, and pin their favorite coins for quick access. Pinned coins are saved to local storage, ensuring that preferences are retained even after refreshing the page.
 
 ## Tech Stack
@@ -11,17 +14,11 @@ This project is a React application for tracking cryptocurrency prices. The app 
 -   **React Router DOM**
 -   **Chart.js**
 
-## Features
-
--   **Home Page**: Displays a list of all cryptocurrencies. The list is updated every 60 seconds using polling.
--   **Coin Overview Page**: Shows detailed information about a specific coin, including a graph of its price over the past year.
--   **Pinned Coins**: Users can pin their favorite coins. Pinned coins are saved to local storage and persist across page refreshes.
-
 ## Pages
 
 ### Home Page
 
-The home page provides a list of cryptocurrencies. This list gets updated every 60 seconds to ensure users see the latest prices. Users can pin their favorite coins, which will be saved to local storage and persist even after refreshing the page.
+The home page provides a list of cryptocurrencies and their brief information. This list gets updated every 60 seconds to ensure users see the latest prices. Users can pin their favorite coins, which will be saved to local storage and persist even after refreshing the page.
 
 ### Coin Overview
 
