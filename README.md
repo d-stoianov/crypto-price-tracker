@@ -5,6 +5,8 @@
 
 This project is a React application for tracking cryptocurrency prices. The app fetches data from the CoinGecko API and displays it in an easy-to-use interface. Users can see a list of coins, view details about a specific coin, and pin their favorite coins for quick access. Pinned coins are saved to local storage, ensuring that preferences are retained even after refreshing the page.
 
+The app is deployed [here](https://crypto-price-tracker-snowy.vercel.app)
+
 ## Tech Stack
 
 -   **Vite**
