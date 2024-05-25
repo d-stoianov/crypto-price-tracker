@@ -1,7 +1,6 @@
 import { CoinType } from '@/features/list/types'
 import { CoinChartData, CoinDetailsType } from '@/features/chart/types'
 import { CoinDetailsDTO, CoinDTO, CoinChartDataDTO } from './types'
-import { formatPrice } from '@/utils/strings'
 
 const API_URL = 'https://api.coingecko.com/api/v3'
 const options = {

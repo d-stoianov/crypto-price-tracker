@@ -7,7 +7,7 @@ export type CoinDetailsType = {
     price_change_percentage_24h: number
     total_volume: number
     total_supply: number
-    max_supply: number
+    max_supply: number | null
     market_cap: number
     description: string
 }

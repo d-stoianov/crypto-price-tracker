@@ -26,7 +26,7 @@ const CoinStatsPanel = ({ coin }: { coin: CoinDetailsType }) => {
                 <div className="flex w-full justify-between">
                     <p className="text-lg text-white">Max supply:</p>
                     <p className="text-lg font-bold text-slate-300">
-                        {formatPrice(coin.max_supply)}
+                        {coin.max_supply && formatPrice(coin.max_supply)}
                     </p>
                 </div>
             </div>
