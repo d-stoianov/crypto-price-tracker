@@ -3,12 +3,14 @@ export const formatWithLeadingZeros = (number: number): string => {
 }
 
 export const formatPrice = (num: number): string => {
-    return num.toLocaleString('en-US', {
+    const options: Intl.NumberFormatOptions = {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-    })
+        minimumFractionDigits: num > 1 ? 0 : 6,
+        maximumFractionDigits: num > 1 ? 2 : 6,
+    }
+
+    return num.toLocaleString('en-US', options)
 }
 
 export const formatLargeCurrency = (num: number): string => {

@@ -8,6 +8,7 @@ import {
     Tooltip,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { CoinChartData } from '../types'
 
 ChartJS.register(
     CategoryScale,
@@ -18,37 +19,41 @@ ChartJS.register(
     Tooltip
 )
 
-const options = {
-    responsive: true,
-    scales: {
-        x: {
-            ticks: {
-                color: 'white',
+const CoinChart = ({ chartData }: { chartData: CoinChartData }) => {
+    const options = {
+        responsive: true,
+        scales: {
+            x: {
+                ticks: {
+                    color: 'white',
+                },
+            },
+            y: {
+                ticks: {
+                    color: 'white',
+                },
             },
         },
-        y: {
-            ticks: {
-                color: 'white',
+    }
+
+    const data = {
+        labels: chartData.map((item) =>
+            item.y.toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+            })
+        ),
+        datasets: [
+            {
+                fill: true,
+                data: chartData.map((item) => item.x),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(255, 99, 132)',
             },
-        },
-    },
-}
+        ],
+    }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
-const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Crypto',
-            data: [12, 51, 25.36, 100, 78, 21, 23],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgb(255, 99, 132)',
-        },
-    ],
-}
-
-const CoinChart = () => {
     return <Line options={options} data={data} />
 }
 
