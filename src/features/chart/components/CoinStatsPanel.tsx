@@ -1,13 +1,7 @@
 import { formatPrice } from '@/utils/strings'
 import { CoinDetailsType } from '../types'
 
-const StatsItem = ({
-    title,
-    value,
-}: {
-    title: string
-    value: number | null
-}) => {
+const StatsItem = ({ title, value }: { title: string; value: number }) => {
     return (
         <div className="flex w-full justify-between rounded-sm bg-slate-600 p-2 px-4">
             <p className="text-lg text-white">{title}</p>
@@ -27,7 +21,9 @@ const CoinStatsPanel = ({ coin }: { coin: CoinDetailsType }) => {
                 <StatsItem title="Total volume" value={coin.total_volume} />
                 <StatsItem title="Market cap" value={coin.market_cap} />
                 <StatsItem title="Total supply" value={coin.total_supply} />
-                <StatsItem title="Max supply" value={coin.max_supply} />
+                {coin.max_supply && (
+                    <StatsItem title="Max supply" value={coin.max_supply} />
+                )}
             </div>
         </section>
     )
