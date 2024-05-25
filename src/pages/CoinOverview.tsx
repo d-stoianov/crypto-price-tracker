@@ -81,10 +81,12 @@ const CoinOverview = () => {
             <CoinPriceDisplay coin={coinDetailsData} />
             <CoinChart chartData={coinChartData} />
             <CoinStatsPanel coin={coinDetailsData} />
-            <CoinDescription
-                title={`About ${coinDetailsData.name}`}
-                description={coinDetailsData.description}
-            />
+            {coinDetailsData.description.length > 0 && (
+                <CoinDescription
+                    title={`About ${coinDetailsData.name}`}
+                    description={coinDetailsData.description}
+                />
+            )}  
         </main>
     )
 }
