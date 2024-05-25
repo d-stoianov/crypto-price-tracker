@@ -22,6 +22,14 @@ ChartJS.register(
 const CoinChart = ({ chartData }: { chartData: CoinChartData }) => {
     const options = {
         responsive: true,
+        elements: {
+            point: {
+                radius: 0,
+            },
+        },
+        interaction: {
+            intersect: false,
+        },
         scales: {
             x: {
                 ticks: {
