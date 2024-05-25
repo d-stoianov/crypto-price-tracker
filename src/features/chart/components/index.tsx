@@ -34,11 +34,26 @@ const CoinChart = ({ chartData }: { chartData: CoinChartData }) => {
             x: {
                 ticks: {
                     color: 'white',
+                    callback: () => {
+                        return ''
+                    },
+                },
+                grid: {
+                    display: false,
+                },
+                border: {
+                    display: false,
                 },
             },
             y: {
                 ticks: {
                     color: 'white',
+                },
+                grid: {
+                    display: false,
+                },
+                border: {
+                    display: false,
                 },
             },
         },
