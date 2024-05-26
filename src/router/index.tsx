@@ -1,7 +1,7 @@
 import HomePage from '@/pages/HomePage'
 import CoinOverview from '@/pages/CoinOverview'
 import ErrorPage from '@/pages/ErrorPage'
-import { createBrowserRouter, RouteObject } from 'react-router-dom'
+import { createHashRouter, RouteObject } from 'react-router-dom'
 
 const routes: RouteObject[] = [
     {
@@ -15,6 +15,6 @@ const routes: RouteObject[] = [
     },
 ]
 
-const router = createBrowserRouter(routes)
+const router = createHashRouter(routes)
 
 export default router
