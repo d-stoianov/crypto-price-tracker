@@ -10,6 +10,7 @@ import {
 } from '@/services/CoinService'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import ErrorPage from './ErrorPage'
 
 const today = new Date()
 const oneYearBack = new Date()
@@ -62,11 +63,7 @@ const CoinOverview = () => {
     }, [coinId])
 
     if (error) {
-        return (
-            <span className="container flex justify-center text-white">
-                {error}
-            </span>
-        )
+        return <ErrorPage message={error} />
     }
 
     const isLoading = !coinDetailsData || !coinChartData

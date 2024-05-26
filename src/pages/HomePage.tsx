@@ -8,6 +8,7 @@ import {
     savePinnedCoinsToLocalStorage,
 } from '@/services/CoinService'
 import { useEffect, useState } from 'react'
+import ErrorPage from './ErrorPage'
 
 const CURRENCY = 'usd'
 const COINS_COUNT = 50
@@ -18,34 +19,41 @@ const HomePage = () => {
     const [coinList, setCoinList] = useState<CoinType[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
         async function fetchCoins() {
-            setIsLoading(true)
-            const coins = await getCoinsMarketData(CURRENCY, COINS_COUNT)
-            // add local index to every coin
-            const coinsWithIndex = coins.map((coin, index) => ({
-                ...coin,
-                index,
-            }))
-
-            // load pinned coins from local storage
-            const pinnedCoins = loadPinnedCoinsFromLocalStorage()
-            const coinsWithPinned = coinsWithIndex
-                .map((coin) => ({
+            try {
+                setIsLoading(true)
+                const coins = await getCoinsMarketData(CURRENCY, COINS_COUNT)
+                // add local index to every coin
+                const coinsWithIndex = coins.map((coin, index) => ({
                     ...coin,
-                    isPinned: pinnedCoins.includes(coin.id),
+                    index,
                 }))
-                .sort((a, b) => {
-                    if (a.isPinned !== b.isPinned) {
-                        return a.isPinned ? -1 : 1
-                    }
-                    return a.index - b.index
-                })
 
-            setLastUpdated(new Date())
-            setIsLoading(false)
-            setCoinList(coinsWithPinned)
+                // load pinned coins from local storage
+                const pinnedCoins = loadPinnedCoinsFromLocalStorage()
+                const coinsWithPinned = coinsWithIndex
+                    .map((coin) => ({
+                        ...coin,
+                        isPinned: pinnedCoins.includes(coin.id),
+                    }))
+                    .sort((a, b) => {
+                        if (a.isPinned !== b.isPinned) {
+                            return a.isPinned ? -1 : 1
+                        }
+                        return a.index - b.index
+                    })
+
+                setLastUpdated(new Date())
+                setIsLoading(false)
+                setCoinList(coinsWithPinned)
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message)
+                }
+            }
         }
         fetchCoins()
         const intervalId = setInterval(fetchCoins, POLLING_INTERVAL)
@@ -81,6 +89,10 @@ const HomePage = () => {
 
             return updatedCoinList
         })
+    }
+
+    if (error) {
+        return <ErrorPage message={error} />
     }
 
     return (
