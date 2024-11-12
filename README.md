@@ -1,11 +1,11 @@
 # Crypto Price Tracker
 
-<img width="1510" alt="screenshot-1" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fb198de4-86d6-4805-bca4-08d22a109686">
-<img width="1510" alt="screenshot-2" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fbba4b3b-56a3-4483-8d53-d376d25919c7">
-
 This project is a React application for tracking cryptocurrency prices. The app fetches data from the CoinGecko API and displays it in an easy-to-use interface. Users can see a list of coins, view details about a specific coin, and pin their favorite coins for quick access. Pinned coins are saved to local storage, ensuring that preferences are retained even after refreshing the page.
 
 The app is deployed [here](https://crypto-price-tracker-snowy.vercel.app)
+
+<img width="1510" alt="screenshot-1" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fb198de4-86d6-4805-bca4-08d22a109686">
+<img width="1510" alt="screenshot-2" src="https://github.com/d-stoianov/crypto-price-tracker/assets/29949314/fbba4b3b-56a3-4483-8d53-d376d25919c7">
 
 ## Tech Stack
 
